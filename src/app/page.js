@@ -1,11 +1,10 @@
 "use client";
-// Import Leaflet and React Leaflet
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+// REMOVE these lines from src/app/page.js
 import AnimatedBackground from "@/components/AnimatedBackground";
 import "@/styles/animatedBackground.css";
-import { useState, useEffect, useRef } from "react";
+// ADD these lines to src/app/page.js
+import { useState, useEffect, useRef, useMemo } from "react";
+import dynamic from "next/dynamic";
 import {
   Cloud,
   MapPin,
@@ -68,6 +67,18 @@ export default function WeatherCompass() {
   const suggestionsRef = useRef(null);
   // Add map coordinates state
   const [coords, setCoords] = useState(null);
+
+  const Map = useMemo(
+    () =>
+      dynamic(
+        () => import("@/components/Map"), // Adjust the path to your Map component
+        {
+          loading: () => <p className="text-center">Loading map...</p>,
+          ssr: false, // This is the key part
+        }
+      ),
+    []
+  );
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -525,27 +536,12 @@ export default function WeatherCompass() {
                       Pick on Map
                     </h3>
                     <div className="h-56 sm:h-64 rounded-xl overflow-hidden border border-slate-700/50">
-                      <MapContainer
-                        center={[15.2993, 74.124]}
-                        zoom={6}
-                        style={{ height: "100%", width: "100%" }}
-                        className="z-0"
-                      >
-                        <TileLayer
-                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                          attribution="© OpenStreetMap"
-                        />
-                        <LocationPicker
-                          setLocation={setLocation}
-                          setCoords={setCoords}
-                        />
-                        {coords && (
-                          <Marker
-                            position={[coords.lat, coords.lon]}
-                            icon={markerIcon}
-                          />
-                        )}
-                      </MapContainer>
+                      {/* REPLACE the old MapContainer with this */}
+                      <Map
+                        setLocation={setLocation}
+                        setCoords={setCoords}
+                        coords={coords}
+                      />
                     </div>
                   </div>
 
