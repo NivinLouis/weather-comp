@@ -429,12 +429,6 @@ export default function WeatherCompass() {
     return null;
   }
 
-  const markerIcon = new L.Icon({
-    iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-  });
-
   return (
     <>
       <div className="relative min-h-screen overflow-hidden night-gradient text-slate-100">
