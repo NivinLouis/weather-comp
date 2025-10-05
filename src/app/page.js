@@ -758,8 +758,8 @@ export default function WeatherCompass() {
                       Ready to Analyze
                     </h3>
                     <p className="text-slate-400">
-                      Configure your event details and click "Analyze Weather"
-                      to generate a report
+                      Configure your event details and click &quot;Analyze
+                      Weather&quot; to generate a report
                     </p>
                   </div>
                 )}
